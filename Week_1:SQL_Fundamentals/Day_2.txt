@@ -1,0 +1,79 @@
+✅ 1. Creating a Database
+sql
+Copy
+Edit
+CREATE DATABASE college_db;
+💡 This creates a new database named college_db.
+
+✅ 2. Viewing Available Databases
+sql
+Copy
+Edit
+SHOW DATABASES;
+✅ 3. Using a Database
+sql
+Copy
+Edit
+USE college_db;
+✅ 4. Creating a Table
+sql
+Copy
+Edit
+CREATE TABLE students (
+    student_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100),
+    age INT
+);
+💡 VARCHAR(100) means the string can be up to 100 characters.
+
+✅ 5. Viewing Tables in a Database
+sql
+Copy
+Edit
+SHOW TABLES;
+✅ 6. Describing Table Structure
+sql
+Copy
+Edit
+DESCRIBE students;
+✅ 7. Modifying a Table
+a. Add a new column:
+sql
+Copy
+Edit
+ALTER TABLE students
+ADD gender VARCHAR(10);
+b. Rename a column:
+sql
+Copy
+Edit
+ALTER TABLE students
+RENAME COLUMN name TO full_name;
+c. Change data type:
+sql
+Copy
+Edit
+ALTER TABLE students
+MODIFY age SMALLINT;
+d. Drop (delete) a column:
+sql
+Copy
+Edit
+ALTER TABLE students
+DROP COLUMN gender;
+✅ 8. Renaming a Table
+sql
+Copy
+Edit
+RENAME TABLE students TO student_info;
+✅ 9. Deleting a Table
+sql
+Copy
+Edit
+DROP TABLE student_info;
+✅ 10. Deleting a Database
+sql
+Copy
+Edit
+DROP DATABASE college_db;
