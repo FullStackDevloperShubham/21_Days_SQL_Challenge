@@ -1,0 +1,52 @@
+CRUD = Create, Read, Update, Delete
+
+We’ll use a simple students table for examples.
+
+🔸 1. CREATE (INSERT) – Add new data
+sql
+Copy
+Edit
+INSERT INTO students (id, name, age, grade)
+VALUES (1, 'Amit', 18, 'A');
+🔸 2. READ (SELECT) – Retrieve data
+✅ Select all records:
+
+sql
+Copy
+Edit
+SELECT * FROM students;
+✅ Select specific columns:
+
+sql
+Copy
+Edit
+SELECT name, grade FROM students;
+✅ Apply a filter:
+
+sql
+Copy
+Edit
+SELECT * FROM students WHERE grade = 'A';
+🔸 3. UPDATE – Modify existing data
+sql
+Copy
+Edit
+UPDATE students
+SET grade = 'B'
+WHERE id = 1;
+🔸 4. DELETE – Remove data
+sql
+Copy
+Edit
+DELETE FROM students
+WHERE id = 1;
+🔁 Optional: Create the students table if you haven’t already
+sql
+Copy
+Edit
+CREATE TABLE students (
+  id INT PRIMARY KEY,
+  name VARCHAR(50),
+  age INT,
+  grade CHAR(1)
+);
