@@ -1,0 +1,68 @@
+🎯 Focus: ORDER BY, LIMIT, OFFSET — Sorting & Limiting Data
+🔢 ORDER BY – Sorting the Result Set
+You use ORDER BY to sort rows based on one or more columns.
+
+Syntax:
+
+sql
+Copy
+Edit
+SELECT column1, column2
+FROM table_name
+ORDER BY column1 [ASC|DESC];
+Example:
+
+sql
+Copy
+Edit
+SELECT name, age
+FROM students
+ORDER BY age ASC;  -- or DESC for descending order
+🎯 LIMIT – Restrict the Number of Rows Returned
+This is used to fetch a specific number of rows.
+
+Syntax:
+
+sql
+Copy
+Edit
+SELECT * FROM table_name
+LIMIT number;
+Example:
+
+sql
+Copy
+Edit
+SELECT * FROM books
+LIMIT 5;
+✅ Returns only the first 5 rows from the books table.
+
+⏩ OFFSET – Skip a Specific Number of Rows
+Use OFFSET to skip rows before starting to return rows.
+
+Syntax:
+
+sql
+Copy
+Edit
+SELECT * FROM table_name
+LIMIT number OFFSET offset_value;
+Example (Pagination):
+
+sql
+Copy
+Edit
+SELECT * FROM books
+ORDER BY title
+LIMIT 5 OFFSET 5;
+📚 This gets the 2nd page of results assuming a page size of 5.
+
+📚 Practical Example (Combined):
+sql
+Copy
+Edit
+SELECT name, marks
+FROM students
+ORDER BY marks DESC
+LIMIT 10 OFFSET 10;
+➡️ This returns the 11th to 20th top-scoring students.
