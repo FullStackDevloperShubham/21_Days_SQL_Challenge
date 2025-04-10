@@ -1,0 +1,70 @@
+🧩 Sample Table: sales
+id	product	category	quantity	price
+1	Pen	Stationery	10	5
+2	Pencil	Stationery	20	3
+3	Notebook	Stationery	15	20
+4	Bag	Accessories	5	500
+5	Wallet	Accessories	8	150
+🔢 COUNT()
+Used to count rows.
+
+sql
+Copy
+Edit
+SELECT COUNT(*) FROM sales;
+-- Output: 5
+Or to count non-null values:
+
+sql
+Copy
+Edit
+SELECT COUNT(price) FROM sales;
+➕ SUM()
+Used to sum numeric values.
+
+sql
+Copy
+Edit
+SELECT SUM(price) AS total_revenue FROM sales;
+-- Output: 678
+You can also combine:
+
+sql
+Copy
+Edit
+SELECT SUM(quantity * price) AS total_sales_value FROM sales;
+📊 AVG()
+Used to get the average.
+
+sql
+Copy
+Edit
+SELECT AVG(price) AS average_price FROM sales;
+🧮 GROUP BY
+Groups rows that have the same value in specified columns.
+
+sql
+Copy
+Edit
+SELECT category, SUM(price) AS total_price
+FROM sales
+GROUP BY category;
+Output:
+
+category	total_price
+Stationery	28
+Accessories	650
+📌 HAVING
+Like WHERE, but for aggregate results.
+
+sql
+Copy
+Edit
+SELECT category, SUM(price) AS total_price
+FROM sales
+GROUP BY category
+HAVING SUM(price) > 100;
+Output:
+
+category	total_price
+Accessories	650
