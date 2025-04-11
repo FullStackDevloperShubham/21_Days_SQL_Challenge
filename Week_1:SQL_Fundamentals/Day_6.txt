@@ -1,0 +1,65 @@
+Day 6: Working with Date & Time - PostgreSQL date/time functions.
+📅 1. Common Date/Time Data Types
+Data Type	Description
+DATE	Date (no time)
+TIME	Time (no date)
+TIMESTAMP	Date and time (no time zone)
+TIMESTAMPTZ	Date and time (with time zone)
+INTERVAL	Time span (e.g., 5 days, 2 hours)
+🕒 2. Current Date & Time Functions
+Function	Description
+CURRENT_DATE	Returns current date
+CURRENT_TIME	Returns current time
+NOW()	Returns current timestamp
+CURRENT_TIMESTAMP	Same as NOW()
+LOCALTIMESTAMP	Timestamp without time zone
+LOCALTIME	Time without time zone
+TIMEOFDAY()	Returns current date/time as text
+🔧 3. Extracting Date/Time Parts
+Use EXTRACT to get parts of a date/time:
+
+sql
+Copy
+Edit
+SELECT EXTRACT(YEAR FROM CURRENT_DATE);    -- 2025
+SELECT EXTRACT(MONTH FROM NOW());          -- 04
+SELECT EXTRACT(DAY FROM TIMESTAMP '2025-04-11 14:30:00'); -- 11
+Or use shortcut functions:
+
+sql
+Copy
+Edit
+SELECT DATE_PART('dow', NOW());    -- Day of week (0=Sunday)
+SELECT DATE_TRUNC('hour', NOW());  -- Truncates to nearest hour
+➕➖ 4. Date Arithmetic
+Add/Subtract INTERVALS:
+sql
+Copy
+Edit
+SELECT NOW() + INTERVAL '1 day';        -- Tomorrow
+SELECT CURRENT_DATE - INTERVAL '7 days'; -- A week ago
+Difference between dates:
+sql
+Copy
+Edit
+SELECT AGE(TIMESTAMP '2025-04-11', TIMESTAMP '2000-01-01');  
+-- 25 years 3 mons 10 days
+🗓️ 5. Formatting Dates (TO_CHAR)
+Customize date/time output:
+
+sql
+Copy
+Edit
+SELECT TO_CHAR(NOW(), 'YYYY-MM-DD');        -- 2025-04-11
+SELECT TO_CHAR(NOW(), 'Month DD, YYYY');    -- April   11, 2025
+SELECT TO_CHAR(NOW(), 'HH24:MI:SS');        -- 13:45:22
+✅ Bonus: Creating Date/Time Columns
+sql
+Copy
+Edit
+CREATE TABLE events (
+  id SERIAL PRIMARY KEY,
+  title TEXT,
+  start_time TIMESTAMP DEFAULT NOW(),
+  end_time TIMESTAMPTZ
+);
