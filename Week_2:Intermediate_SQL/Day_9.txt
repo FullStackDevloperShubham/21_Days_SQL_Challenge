@@ -1,0 +1,61 @@
+Day 9: Subqueries & CTEs - Writing subqueries, using WITH.
+
+Subqueries (Nested Queries)
+
+A subquery is a query within a query.
+
+📌 Syntax:
+
+SELECT column1
+FROM table1
+WHERE column2 = (
+  SELECT column2
+  FROM table2
+  WHERE condition
+);
+✅ Example:
+Find employees who earn more than the average salary.
+
+
+SELECT name, salary
+FROM employees
+WHERE salary > (
+  SELECT AVG(salary)
+  FROM employees
+);
+You can use subqueries in:
+
+WHERE
+
+FROM
+
+SELECT clauses
+
+📦 CTEs (WITH Clause)
+CTEs make your queries more readable and are reusable within the query.
+
+📌 Syntax:
+
+WITH cte_name AS (
+  SELECT column1, column2
+  FROM table
+  WHERE condition
+)
+SELECT *
+FROM cte_name
+WHERE column1 = 'some_value';
+✅ Example:
+Get the department with the highest average salary.
+
+
+WITH DeptAvg AS (
+  SELECT department, AVG(salary) AS avg_salary
+  FROM employees
+  GROUP BY department
+)
+SELECT *
+FROM DeptAvg
+WHERE avg_salary = (
+  SELECT MAX(avg_salary)
+  FROM DeptAvg
+);
