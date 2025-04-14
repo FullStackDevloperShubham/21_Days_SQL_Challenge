@@ -1,0 +1,60 @@
+:
+
+🔸 1. INNER JOIN
+Returns only the matching rows from both tables based on the specified condition.
+
+✅ Use When:
+You only want records that exist in both tables.
+
+📦 Syntax:
+
+SELECT a.column1, b.column2
+FROM tableA a
+INNER JOIN tableB b
+ON a.common_column = b.common_column;
+🎯 Example:
+
+SELECT students.name, enrollments.course
+FROM students
+INNER JOIN enrollments
+ON students.id = enrollments.student_id;
+Only students who have enrolled in at least one course will be shown.
+
+🔸 2. LEFT JOIN (or LEFT OUTER JOIN)
+Returns all rows from the left table, and the matched rows from the right table. If no match, the result is NULL from the right side.
+
+✅ Use When:
+You want all records from the left table, even if there's no match in the right.
+
+📦 Syntax:
+
+SELECT a.column1, b.column2
+FROM tableA a
+LEFT JOIN tableB b
+ON a.common_column = b.common_column;
+🎯 Example:
+
+SELECT students.name, enrollments.course
+FROM students
+LEFT JOIN enrollments
+ON students.id = enrollments.student_id;
+This will include all students, even those who haven’t enrolled in any course (course will show as NULL).
+
+🔸 3. RIGHT JOIN (or RIGHT OUTER JOIN)
+Returns all rows from the right table, and the matched rows from the left table. If no match, the result is NULL from the left side.
+
+✅ Use When:
+You want all records from the right table, even if there's no match in the left.
+
+📦 Syntax:
+
+SELECT a.column1, b.column2
+FROM tableA a
+RIGHT JOIN tableB b
+ON a.common_column = b.common_column;
+🎯 Example:
+
+SELECT students.name, enrollments.course
+FROM students
+RIGHT JOIN enrollments
+ON students.id = enrollments.student_id;
