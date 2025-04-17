@@ -1,0 +1,46 @@
+Day 10: Set Operations - UNION, INTERSECT, EXCEPT.
+
+🔹 1. UNION
+Combines distinct rows from both queries.
+
+✅ Syntax:
+
+SELECT column1, column2 FROM table1
+UNION
+SELECT column1, column2 FROM table2;
+
+ Example:
+
+SELECT name FROM students_2024
+UNION
+SELECT name FROM students_2025;
+
+🔹 2. INTERSECT
+Returns common rows from both queries.
+
+✅ Syntax:
+
+SELECT column1 FROM table1
+INTERSECT
+SELECT column1 FROM table2;
+
+ Example:
+
+SELECT email FROM registered_users
+INTERSECT
+SELECT email FROM newsletter_subscribers;
+
+ 3. EXCEPT (also known as MINUS in some DBs)
+Returns rows from the first query that are not in the second.
+
+✅ Syntax:
+
+SELECT column1 FROM table1
+EXCEPT
+SELECT column1 FROM table2;
+
+Example:
+
+SELECT employee_id FROM employees
+EXCEPT
+SELECT employee_id FROM retired_employees;
