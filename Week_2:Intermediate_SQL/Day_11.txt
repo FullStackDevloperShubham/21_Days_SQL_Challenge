@@ -1,0 +1,41 @@
+Day 11: Window Functions - ROW_NUMBER(), RANK(), DENSE_RANK().
+
+🔍 What Are Window Functions?
+Window functions perform a calculation across a set of table rows related to the current row. Unlike aggregate functions, they don't collapse rows – they preserve the number of rows.
+
+The general syntax:
+
+function_name() OVER (
+  PARTITION BY column_name
+  ORDER BY column_name
+)
+
+✅ 1. ROW_NUMBER()
+Gives a unique sequential number to each row within a partition, without handling ties.
+
+📌 Use case: You want to assign a unique number to each row, like serial numbers per group.
+
+SELECT 
+  name, department, salary,
+  ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC) AS row_num
+FROM employees;
+
+✅ 2. RANK()
+Ranks rows within a partition based on ORDER BY. Ties get the same rank, and skips the next rank(s).
+
+📌 Use case: You want to rank students, and ties get same rank but the next rank is skipped.
+
+SELECT 
+  name, department, salary,
+  RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS rank
+FROM employees;
+
+✅ 3. DENSE_RANK()
+Same as RANK() but does not skip the next rank after a tie.
+
+📌 Use case: You want to assign compact ranks without gaps in case of ties.
+
+SELECT 
+  name, department, salary,
+  DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS dense_rank
+FROM employees;
