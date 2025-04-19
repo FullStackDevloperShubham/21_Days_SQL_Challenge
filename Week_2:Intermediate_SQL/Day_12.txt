@@ -1,0 +1,67 @@
+What is EXPLAIN ANALYZE?
+EXPLAIN shows the execution plan of a query — how the database plans to retrieve the data.
+
+EXPLAIN ANALYZE actually runs the query and shows detailed execution statistics, including:
+
+Time taken at each step
+
+Whether indexes are used
+
+Number of rows processed at each step
+
+Syntax:
+
+EXPLAIN ANALYZE
+SELECT * FROM users WHERE email = 'test@example.com';
+
+Sample Output Breakdown:
+
+Seq Scan on users  (cost=0.00..35.50 rows=1 width=100) (actual time=0.030..0.032 rows=1 loops=1)
+  Filter: (email = 'test@example.com')
+  Rows Removed by Filter: 99
+Planning Time: 0.120 ms
+Execution Time: 0.050 ms
+
+Optimizing with Indexes
+Let’s say you add an index:
+
+CREATE INDEX idx_users_email ON users(email);
+
+Now run:
+
+EXPLAIN ANALYZE
+SELECT * FROM users WHERE email = 'test@example.com';
+
+Index Scan using idx_users_email on users  (cost=0.30..8.50 rows=1 width=100) (actual time=0.020..0.021 rows=1 loops=1)
+
+Tips for Using EXPLAIN ANALYZE Effectively
+Use it to compare before and after adding an index.
+
+Look for Seq Scans on large tables — try replacing them with indexes.
+
+Check row estimates vs actual rows — huge differences indicate bad statistics.
+
+Pay attention to "loops" — nested loops can cause performance bottlenecks.
+
+🧪 Example Use Case:
+sql
+Copy
+Edit
+-- Create a large dummy table
+CREATE TABLE big_table (
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    email TEXT
+);
+
+-- Insert a lot of data
+INSERT INTO big_table (name, email)
+SELECT md5(random()::text), md5(random()::text) || '@gmail.com'
+FROM generate_series(1, 100000);
+
+-- Query with EXPLAIN ANALYZE
+EXPLAIN ANALYZE
+SELECT * FROM big_table WHERE email = 'random_value@gmail.com';
+
+-- Then create an index and try again
+CREATE INDEX idx_email ON big_table(email);
