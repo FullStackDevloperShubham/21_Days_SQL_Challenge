@@ -1,0 +1,83 @@
+What is PL/pgSQL?
+PL/pgSQL (Procedural Language/PostgreSQL) is PostgreSQL’s procedural language, allowing you to write code that includes:
+
+Control structures (IF, LOOP, etc.)
+
+Variable declarations
+
+Error handling
+
+More powerful business logic than raw SQL
+
+ Syntax of a Basic Function
+
+CREATE OR REPLACE FUNCTION function_name(param1 TYPE, param2 TYPE)
+RETURNS return_type AS $$
+DECLARE
+    -- variable declarations
+BEGIN
+    -- logic here
+    RETURN something;
+END;
+$$ LANGUAGE plpgsql;
+
+ Example 1: Add Two Numbers
+
+CREATE OR REPLACE FUNCTION add_numbers(a INT, b INT)
+RETURNS INT AS $$
+BEGIN
+    RETURN a + b;
+END;
+$$ LANGUAGE plpgsql;
+
+ Call it:
+
+SELECT add_numbers(5, 10); -- Output: 15
+
+Example 3: Raise a Notice and Use IF Condition
+
+CREATE OR REPLACE FUNCTION check_even_odd(num INT)
+RETURNS TEXT AS $$
+BEGIN
+    IF num % 2 = 0 THEN
+        RETURN 'Even';
+    ELSE
+        RETURN 'Odd';
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+ Example 4: Looping (Print numbers 1 to 5)
+
+CREATE OR REPLACE FUNCTION count_up()
+RETURNS VOID AS $$
+DECLARE
+    i INT := 1;
+BEGIN
+    WHILE i <= 5 LOOP
+        RAISE NOTICE 'Number: %', i;
+        i := i + 1;
+    END LOOP;
+END;
+$$ LANGUAGE plpgsql;
+
+ Call with:
+
+SELECT count_up();
+
+ Stored Procedure (vs Function)
+Functions must return a value, procedures do not need to.
+
+CREATE PROCEDURE log_message(msg TEXT)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RAISE NOTICE 'Log: %', msg;
+END;
+$$;
+
+Call with:
+
+CALL log_message('System started');
+
+
