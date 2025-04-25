@@ -1,0 +1,59 @@
+🔥 What is a Trigger in SQL?
+A trigger is a special kind of stored procedure that automatically executes in response to certain events on a table or view (like INSERT, UPDATE, or DELETE).
+
+✨ Use Cases
+Automatically update a timestamp when a row is modified.
+
+Prevent invalid data from being inserted.
+
+Log changes to an audit table.
+
+Send alerts or chain updates across tables.
+
+Basic Syntax
+CREATE TRIGGER trigger_name
+AFTER INSERT ON table_name
+FOR EACH ROW
+BEGIN
+    -- SQL statements
+END;
+
+AFTER or BEFORE: when the trigger runs.
+
+INSERT, UPDATE, DELETE: the event that fires it.
+
+FOR EACH ROW: runs once per affected row.
+
+🧪 Example: Audit Log on INSERT
+Suppose you have a users table and want to log all inserts into a separate user_audit table.
+
+-- Audit table
+CREATE TABLE user_audit (
+    id SERIAL PRIMARY KEY,
+    username TEXT,
+    action TEXT,
+    action_time TIMESTAMP
+);
+
+-- Trigger
+CREATE OR REPLACE FUNCTION log_user_insert()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO user_audit (username, action, action_time)
+    VALUES (NEW.username, 'INSERT', NOW());
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER after_user_insert
+AFTER INSERT ON users
+FOR EACH ROW
+EXECUTE FUNCTION log_user_insert();
+
+Notes
+In PostgreSQL, you use plpgsql.
+
+In MySQL, the syntax differs slightly (DELIMITER //, etc.).
+
+You can use NEW (for INSERT/UPDATE) and OLD (for DELETE/UPDATE) to refer to row values.
+
