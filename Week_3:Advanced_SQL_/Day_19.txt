@@ -1,0 +1,48 @@
+ Day 19: Security & User Management
+
+ 1. Why Security & User Management?
+In databases, security ensures that only the right users can access or modify the data.
+
+User management means creating users, giving them permissions, or removing them when needed.
+
+2. Important Concepts
+👉 Roles
+A role is like a group or profile.
+
+You can assign permissions to a role, and then assign that role to users.
+
+Roles make permission management easier!
+
+ Create a role:
+
+CREATE ROLE manager;
+
+ Create a role with login:
+
+ CREATE ROLE analyst WITH LOGIN PASSWORD 'password123';
+
+ Assign a role to a user:
+
+GRANT manager TO analyst;
+
+GRANT
+GRANT is used to give permissions (privileges) to a user or role.
+
+🔹 Example: Grant SELECT permission on a table:
+
+GRANT SELECT ON employees TO analyst;
+
+Grant multiple permissions:
+
+GRANT SELECT, INSERT, UPDATE ON employees TO analyst;
+
+REVOKE
+REVOKE is used to remove permissions.
+
+🔹 Example: Revoke SELECT permission:
+
+REVOKE SELECT ON employees FROM analyst;
+
+Revoke multiple permissions:
+
+REVOKE INSERT, UPDATE ON employees FROM analyst;
