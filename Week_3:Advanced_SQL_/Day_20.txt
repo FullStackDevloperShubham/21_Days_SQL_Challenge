@@ -1,0 +1,71 @@
+✅ Objective:
+Learn to write optimized SQL queries by analyzing real-world case studies, understanding indexes, reducing full table scans, and choosing the right operations for performance.
+
+🔍 Step 1: Choose a Real-World Scenario
+Pick one of the following domains for your case study:
+
+E-commerce: Orders, products, users.
+
+Healthcare: Patients, appointments, prescriptions.
+
+Banking: Transactions, accounts, branches.
+
+Education: Students, courses, instructors.
+
+Example Case Study: E-commerce Order System
+
+Customers(id, name, email)
+Orders(id, customer_id, order_date, total_amount)
+Order_Items(id, order_id, product_id, quantity, price)
+Products(id, name, category, stock)
+
+🧠 Step 2: Identify Real Business Queries
+Examples:
+
+Get top 5 customers by total purchase in the last 6 months.
+
+Get products with zero stock but still present in recent orders.
+
+Count orders per category in the last 3 months.
+
+Average order value per customer.
+
+⚙️ Step 3: Write and Optimize Queries
+Example Query: Top 5 Customers by Purchase
+Unoptimized Version:
+
+SELECT customer_id, SUM(total_amount) as total
+FROM Orders
+WHERE order_date >= CURRENT_DATE - INTERVAL '6 months'
+GROUP BY customer_id
+ORDER BY total DESC
+LIMIT 5;
+
+🔄 Optimized Version:
+Ensure index on order_date and customer_id.
+
+Avoid unnecessary columns.
+
+Use INNER JOIN only if needed.
+
+-- Assuming indexes on (order_date), (customer_id)
+SELECT c.name, SUM(o.total_amount) AS total_spent
+FROM Customers c
+JOIN Orders o ON c.id = o.customer_id
+WHERE o.order_date >= CURRENT_DATE - INTERVAL '6 months'
+GROUP BY c.id, c.name
+ORDER BY total_spent DESC
+LIMIT 5;
+
+🧪 Step 4: Use EXPLAIN for Query Plan
+sql
+Copy
+Edit
+EXPLAIN ANALYZE
+SELECT c.name, SUM(o.total_amount) AS total_spent
+FROM Customers c
+JOIN Orders o ON c.id = o.customer_id
+WHERE o.order_date >= CURRENT_DATE - INTERVAL '6 months'
+GROUP BY c.id, c.name
+ORDER BY total_spent DESC
+LIMIT 5;
